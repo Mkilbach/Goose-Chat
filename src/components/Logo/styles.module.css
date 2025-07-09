@@ -1,0 +1,9 @@
+.logo {
+    padding: 10px;
+    max-height: calc(100% - 20px);
+
+    @media (max-width: 650px ) {
+        padding: 5px;
+        max-height: calc(100% - 10px);
+    }
+}

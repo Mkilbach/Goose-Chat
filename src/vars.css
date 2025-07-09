@@ -1,0 +1,9 @@
+:root {
+  --color-main: #ed9c2b;
+  --color-secondary: #5384d2;
+
+  --color-bg-light: #eee;
+
+  --container-width: 800px;
+  --chat-width: 800px;
+}

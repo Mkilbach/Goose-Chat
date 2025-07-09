@@ -1,0 +1,82 @@
+.message-box {
+  position: relative;
+  padding: 10px 20px;
+  display: block;
+  background-color: var(--color-bg-light);
+  border: 2px solid var(--color-main);
+  border-radius: 5px;
+  margin-top: 20px;
+
+  &::after,
+  &::before {
+    content: "";
+    position: absolute;
+    bottom: -14px;
+    left: 10px;
+    display: block;
+    height: 0;
+    width: 0;
+    transform: rotate(90deg);
+  }
+
+  &::after {
+    bottom: -9px;
+    left: 10px;
+    border-bottom: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid var(--color-bg-light);
+  }
+
+  &::before {
+    bottom: -14px;
+    left: 8px;
+    border-bottom: 13px solid transparent;
+    border-right: 13px solid transparent;
+    border-bottom: 13px solid var(--color-main);
+  }
+
+  &--own {
+    border-color: var(--color-secondary);
+    text-align: right;
+
+    &::after {
+      bottom: -9px;
+      left: calc(100% - 20px);
+      transform: scale(-1, -1);
+    }
+
+    &::before {
+      bottom: -14px;
+      left: calc(100% - 21px);
+      border-bottom-color: var(--color-secondary);
+      transform: scale(-1, -1);
+    }
+  }
+}
+
+.message-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 30px;
+}
+
+.message-date,
+.message-author {
+  color: var(--color-secondary);
+  font-size: 10px;
+  font-weight: 700;
+
+  @media (min-width: 650px) {
+    font-size: 12px;
+  }
+}
+
+.message-text {
+  font-size: 16px;
+  color: black;
+
+  @media (max-width: 650px) {
+    font-size: 12px;
+  }
+}
