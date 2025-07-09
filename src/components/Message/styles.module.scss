@@ -5,7 +5,8 @@
   background-color: var(--color-bg-light);
   border: 2px solid var(--color-main);
   border-radius: 5px;
-  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-right: 10%;
 
   &::after,
   &::before {
@@ -38,6 +39,8 @@
   &--own {
     border-color: var(--color-secondary);
     text-align: right;
+    margin-right: 0;
+    margin-left: 10%;
 
     &::after {
       bottom: -9px;

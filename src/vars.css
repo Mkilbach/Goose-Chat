@@ -1,8 +1,14 @@
 :root {
   --color-main: #ed9c2b;
-  --color-secondary: #5384d2;
+
+  --color-secondary: rgb(51, 100, 179);
+  --color-secondary-light: #6498ea;
+
+  --color-font-light: #ccc;
+  --color-font-dark: #333;
 
   --color-bg-light: #eee;
+  --color-bg-dark: #222;
 
   --container-width: 800px;
   --chat-width: 800px;

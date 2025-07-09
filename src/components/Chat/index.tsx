@@ -30,7 +30,7 @@ export const Chat = () => {
     <div className={styles.chatContainer}>
       {activeChatRoomId ? (
         <>
-          <button onClick={() => setActiveChatRoomId("")}>close this room</button>
+          <button className={styles.backButton} onClick={() => setActiveChatRoomId("")}>Go back to chat rooms list</button>
           <ChatBox roomId={activeChatRoomId} />
         </>
       ) : (

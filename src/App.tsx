@@ -8,7 +8,6 @@ function App() {
   return (
     <>
       <Header />
-      <h1 style={{textAlign: 'center'}}>Welcome to Goose Chat!</h1>
       <Chat />
     </>
   );

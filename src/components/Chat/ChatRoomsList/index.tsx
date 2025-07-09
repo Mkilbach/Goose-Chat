@@ -1,4 +1,5 @@
-import { Loader } from '../../Loader';
+import { Loader } from "../../Loader";
+import { ChatRoomTile } from "./ChatRoomTile";
 
 type Props = {
   chatRoomsList: Record<string, string>[];
@@ -10,15 +11,9 @@ export const ChatRoomsList = ({ chatRoomsList, handleChatRoomSelect }: Props) =>
     <>
       <h2>Pick your chat room:</h2>
       {chatRoomsList.length ? (
-        <ul>
-          {chatRoomsList.map(el => {
-            return (
-              <li key={el.id} onClick={() => handleChatRoomSelect(el.id)}>
-                {el.name}
-              </li>
-            );
-          })}
-        </ul>
+        chatRoomsList.map(el => {
+          return <ChatRoomTile key={el.id} onClick={() => handleChatRoomSelect(el.id)} name={el.name} />;
+        })
       ) : (
         <Loader />
       )}
