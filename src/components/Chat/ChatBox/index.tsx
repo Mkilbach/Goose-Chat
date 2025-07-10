@@ -70,8 +70,6 @@ export const ChatBox = ({ roomId }: Props) => {
     messagesListBottomRef.current?.scrollIntoView();
   }, [messagesList.length]);
 
-  console.log(messagesList);
-
   return (
     <>
       <div className={styles.chatBox}>

@@ -1,14 +1,13 @@
-import { getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
-import { useEffect, useState } from 'react';
+import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { useEffect, useState } from "react";
 
-import { auth } from '../../firebase';
+import { auth } from "../../firebase";
 
 function SignIn() {
   const [displayName, setdisplayName] = useState<string | null>(null);
 
   useEffect(() => {
     const currentAuth = getAuth();
-    console.log(currentAuth.currentUser?.displayName);
     setdisplayName(currentAuth.currentUser?.displayName || null);
   }, []);
 
