@@ -1,0 +1,20 @@
+.chatContainer {
+  max-width: var(--container-width);
+  margin: 0 auto;
+
+  &--center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50vh;
+  }
+}
+
+.backButton {
+  font-size: 16px;
+  margin-top: 15px;
+
+  @media (max-width: 650px) {
+    font-size: 12px;
+  }
+}

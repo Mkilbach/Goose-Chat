@@ -1,5 +1,7 @@
-import loader from '../../assets/loader.svg';
+import loader from "../../assets/loader.svg";
 
-export const Loader = () => {
-  return <img src={loader} />;
+type Props = { height?: number };
+
+export const Loader = ({ height }: Props) => {
+  return <img style={{ height: height ? height + "px" : "auto" }} src={loader} />;
 };

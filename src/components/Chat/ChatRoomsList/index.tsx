@@ -15,7 +15,9 @@ export const ChatRoomsList = ({ chatRoomsList, handleChatRoomSelect }: Props) =>
           return <ChatRoomTile key={el.id} onClick={() => handleChatRoomSelect(el.id)} name={el.name} />;
         })
       ) : (
-        <Loader />
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          <Loader />
+        </div>
       )}
     </>
   );

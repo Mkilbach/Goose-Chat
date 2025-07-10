@@ -1,9 +1,0 @@
-.chatContainer {
-    max-width: var(--container-width);
-    margin: 0 auto;
-}
-
-.backButton {
-    font-size: 16px;
-   margin-top: 15px;
-}
