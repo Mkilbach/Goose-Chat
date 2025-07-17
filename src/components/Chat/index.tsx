@@ -13,15 +13,17 @@ import classNames from "classnames";
 const chatRoomsRef = collection(db, "chatRooms");
 const chatRoomsQuery = query(chatRoomsRef);
 
+export type userData = { username: string; id: string };
+
 export const Chat = () => {
   const [initialAuthCheckFinished, setInitialAuthCheckFinished] = useState(false);
-  const [isUserLogged, setIsUserLogged] = useState(false);
+  const [userData, setUserData] = useState<userData | null>(null);
   const [chatRooms, setChatRooms] = useState<Record<string, string>[]>([]);
   const [activeChatRoomId, setActiveChatRoomId] = useState<string>("");
 
   useEffect(() => {
     onAuthStateChanged(auth, user => {
-      setIsUserLogged(!!user);
+      setUserData(user ? { username: user.displayName || "", id: user.uid } : null);
       setInitialAuthCheckFinished(true);
     });
   }, []);
@@ -50,7 +52,7 @@ export const Chat = () => {
     );
   }
 
-  if (!isUserLogged)
+  if (!userData)
     return (
       <div className={styles.chatContainer}>
         <h2>Log in to start honking!</h2>
@@ -64,7 +66,7 @@ export const Chat = () => {
           <button className={styles.backButton} onClick={() => setActiveChatRoomId("")}>
             Go back to chat rooms list
           </button>
-          <ChatBox roomId={activeChatRoomId} />
+          <ChatBox roomId={activeChatRoomId} userData={userData} />
         </>
       ) : (
         <ChatRoomsList chatRoomsList={chatRooms} handleChatRoomSelect={setActiveChatRoomId} />

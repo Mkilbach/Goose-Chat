@@ -3,7 +3,7 @@ import { getAuth } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
 
 const firebaseConfig = {
-  apiKey: "-",
+  apiKey: "AIzaSyDN743iejY2TKAU-5k5zgizoJe1AT5nMIg",
   authDomain: "goose-chat-app.firebaseapp.com",
   projectId: "goose-chat-app",
   storageBucket: "goose-chat-app.firebasestorage.app",

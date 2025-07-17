@@ -7,9 +7,11 @@ import styles from "./styles.module.scss";
 import { MessageInput } from "./MessageInput";
 import { Loader } from "../../Loader";
 import { useSubscribeToMessages } from "./hooks";
+import type { userData } from "..";
 
 type Props = {
   roomId: string;
+  userData: userData;
 };
 
 export type MessageType = {
@@ -20,7 +22,7 @@ export type MessageType = {
   createdAt: Timestamp;
 };
 
-export const ChatBox = ({ roomId }: Props) => {
+export const ChatBox = ({ roomId, userData }: Props) => {
   const messagesListBottomRef = useRef<HTMLDivElement | null>(null);
   const messagesCollectionRef = useRef<CollectionReference<DocumentData, DocumentData> | null>(
     collection(db, `/chatRooms/${roomId}/messages`)
@@ -36,9 +38,9 @@ export const ChatBox = ({ roomId }: Props) => {
 
     await setDoc(doc(messagesCollectionRef.current), {
       createdAt: new Date(),
-      displayName: "test user",
+      displayName: userData.username,
       text: message,
-      userId: "123",
+      userId: userData.id,
     });
   };
 
@@ -53,7 +55,13 @@ export const ChatBox = ({ roomId }: Props) => {
           <>
             {messagesList.map(({ id, text, userId, displayName, createdAt }) => {
               return (
-                <Message key={id} text={text} isOwn={userId === "123"} author={displayName} createdAt={createdAt} />
+                <Message
+                  key={id}
+                  text={text}
+                  isOwn={userId === userData.id}
+                  author={displayName}
+                  createdAt={createdAt}
+                />
               );
             })}
             <div ref={messagesListBottomRef}></div>
