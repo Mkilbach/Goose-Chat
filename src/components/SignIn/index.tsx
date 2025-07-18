@@ -20,6 +20,9 @@ function SignIn() {
 
   const signInWithGoogle = () => {
     const provider = new GoogleAuthProvider();
+    provider.setCustomParameters({
+      prompt: "select_account",
+    });
     signInWithPopup(auth, provider);
   };
 

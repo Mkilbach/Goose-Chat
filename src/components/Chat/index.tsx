@@ -37,7 +37,7 @@ export const Chat = () => {
       });
       setChatRooms(array);
     })();
-  }, []);
+  }, [userData?.id]);
 
   if (!initialAuthCheckFinished) {
     const loaderContainerClasses = classNames({
