@@ -1,4 +1,4 @@
-import { collection, CollectionReference, doc, setDoc, Timestamp, type DocumentData } from "firebase/firestore";
+import { collection, CollectionReference, deleteDoc, doc, setDoc, Timestamp, type DocumentData } from "firebase/firestore";
 import { useEffect, useRef, useState } from "react";
 
 import { db } from "../../../firebase";
@@ -30,6 +30,11 @@ export const ChatBox = ({ roomId, userData }: Props) => {
   const [sendError, setSendError] = useState<string | null>(null);
 
   const { messagesList, isLoading } = useSubscribeToMessages(messagesCollectionRef.current);
+
+  const handleMessageDelete = async (messageId: string) => {
+    if (!messagesCollectionRef.current) return;
+    await deleteDoc(doc(messagesCollectionRef.current, messageId));
+  };
 
   const handleMessageSend = async (formData: FormData) => {
     if (!messagesCollectionRef.current) return;
@@ -63,10 +68,12 @@ export const ChatBox = ({ roomId, userData }: Props) => {
           return (
             <Message
               key={id}
+              id={id}
               text={text}
               isOwn={userId === userData.id}
               author={displayName}
               createdAt={createdAt}
+              onDelete={handleMessageDelete}
             />
           );
         })}

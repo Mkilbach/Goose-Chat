@@ -75,6 +75,20 @@
   }
 }
 
+.message-delete {
+  margin-top: 6px;
+  background: none;
+  border: none;
+  color: var(--color-secondary);
+  font-size: 11px;
+  cursor: pointer;
+  padding: 0;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
 .message-text {
   font-size: 16px;
   color: black;
