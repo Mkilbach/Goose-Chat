@@ -4,6 +4,7 @@ import type { MessageType } from ".";
 
 export const useSubscribeToMessages = (collectionRef: CollectionReference<DocumentData, DocumentData> | null) => {
   const [messagesList, setmessagesList] = useState<MessageType[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     if (!collectionRef) return;
@@ -14,10 +15,11 @@ export const useSubscribeToMessages = (collectionRef: CollectionReference<Docume
         array.push({ id: doc.id, ...doc.data() } as MessageType);
       });
       setmessagesList(array);
+      setIsLoading(false);
     });
 
     return () => unsubscribe();
   }, [collectionRef]);
 
-  return messagesList;
+  return { messagesList, isLoading };
 };

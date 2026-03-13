@@ -19,6 +19,7 @@ export const Chat = () => {
   const [initialAuthCheckFinished, setInitialAuthCheckFinished] = useState(false);
   const [userData, setUserData] = useState<userData | null>(null);
   const [chatRooms, setChatRooms] = useState<Record<string, string>[]>([]);
+  const [chatRoomsLoading, setChatRoomsLoading] = useState(true);
   const [activeChatRoomId, setActiveChatRoomId] = useState<string>("");
 
   useEffect(() => {
@@ -36,6 +37,7 @@ export const Chat = () => {
         array.push({ id: doc.id, ...doc.data() });
       });
       setChatRooms(array);
+      setChatRoomsLoading(false);
     })();
   }, [userData?.id]);
 
@@ -69,7 +71,7 @@ export const Chat = () => {
           <ChatBox roomId={activeChatRoomId} userData={userData} />
         </>
       ) : (
-        <ChatRoomsList chatRoomsList={chatRooms} handleChatRoomSelect={setActiveChatRoomId} />
+        <ChatRoomsList chatRoomsList={chatRooms} handleChatRoomSelect={setActiveChatRoomId} isLoading={chatRoomsLoading} />
       )}
     </div>
   );

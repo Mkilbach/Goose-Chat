@@ -29,7 +29,7 @@ export const ChatBox = ({ roomId, userData }: Props) => {
   );
   const [sendError, setSendError] = useState<string | null>(null);
 
-  const messagesList = useSubscribeToMessages(messagesCollectionRef.current);
+  const { messagesList, isLoading } = useSubscribeToMessages(messagesCollectionRef.current);
 
   const handleMessageSend = async (formData: FormData) => {
     if (!messagesCollectionRef.current) return;
@@ -54,27 +54,31 @@ export const ChatBox = ({ roomId, userData }: Props) => {
     messagesListBottomRef.current?.scrollIntoView();
   }, [messagesList.length]);
 
+  const renderMessages = () => {
+    if (isLoading) return <Loader />;
+    if (!messagesList.length) return <p>No messages yet</p>;
+    return (
+      <>
+        {messagesList.map(({ id, text, userId, displayName, createdAt }) => {
+          return (
+            <Message
+              key={id}
+              text={text}
+              isOwn={userId === userData.id}
+              author={displayName}
+              createdAt={createdAt}
+            />
+          );
+        })}
+        <div ref={messagesListBottomRef}></div>
+      </>
+    );
+  };
+
   return (
     <>
       <div className={styles.chatBox}>
-        {messagesList.length ? (
-          <>
-            {messagesList.map(({ id, text, userId, displayName, createdAt }) => {
-              return (
-                <Message
-                  key={id}
-                  text={text}
-                  isOwn={userId === userData.id}
-                  author={displayName}
-                  createdAt={createdAt}
-                />
-              );
-            })}
-            <div ref={messagesListBottomRef}></div>
-          </>
-        ) : (
-          <Loader />
-        )}
+        {renderMessages()}
       </div>
       {sendError && <p className={styles.error}>{sendError}</p>}
       <MessageInput handleMessageSend={handleMessageSend} />
