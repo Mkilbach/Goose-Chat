@@ -1,5 +1,5 @@
 import { collection, CollectionReference, doc, setDoc, Timestamp, type DocumentData } from "firebase/firestore";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { db } from "../../../firebase";
 import { Message } from "../../Message";
@@ -27,6 +27,7 @@ export const ChatBox = ({ roomId, userData }: Props) => {
   const messagesCollectionRef = useRef<CollectionReference<DocumentData, DocumentData> | null>(
     collection(db, `/chatRooms/${roomId}/messages`)
   );
+  const [sendError, setSendError] = useState<string | null>(null);
 
   const messagesList = useSubscribeToMessages(messagesCollectionRef.current);
 
@@ -36,12 +37,17 @@ export const ChatBox = ({ roomId, userData }: Props) => {
     const message = formData.get("message");
     if (!message) return;
 
-    await setDoc(doc(messagesCollectionRef.current), {
-      createdAt: new Date(),
-      displayName: userData.username,
-      text: message,
-      userId: userData.id,
-    });
+    setSendError(null);
+    try {
+      await setDoc(doc(messagesCollectionRef.current), {
+        createdAt: new Date(),
+        displayName: userData.username,
+        text: message,
+        userId: userData.id,
+      });
+    } catch {
+      setSendError("Failed to send message. Please try again.");
+    }
   };
 
   useEffect(() => {
@@ -70,6 +76,7 @@ export const ChatBox = ({ roomId, userData }: Props) => {
           <Loader />
         )}
       </div>
+      {sendError && <p className={styles.error}>{sendError}</p>}
       <MessageInput handleMessageSend={handleMessageSend} />
     </>
   );
