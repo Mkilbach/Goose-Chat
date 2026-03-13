@@ -5,10 +5,9 @@ import { db } from "../../firebase";
 import { ChatBox } from "./ChatBox";
 import { ChatRoomsList } from "./ChatRoomsList";
 import styles from "./styles.module.scss";
-import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "../../firebase";
 import { Loader } from "../Loader";
 import classNames from "classnames";
+import { useAuth } from "../../context/AuthContext";
 
 const chatRoomsRef = collection(db, "chatRooms");
 const chatRoomsQuery = query(chatRoomsRef);
@@ -16,18 +15,11 @@ const chatRoomsQuery = query(chatRoomsRef);
 export type userData = { username: string; id: string };
 
 export const Chat = () => {
-  const [initialAuthCheckFinished, setInitialAuthCheckFinished] = useState(false);
-  const [userData, setUserData] = useState<userData | null>(null);
+  const { user, initialAuthCheckFinished } = useAuth();
+  const userData: userData | null = user ? { username: user.displayName || "", id: user.uid } : null;
   const [chatRooms, setChatRooms] = useState<Record<string, string>[]>([]);
   const [chatRoomsLoading, setChatRoomsLoading] = useState(true);
   const [activeChatRoomId, setActiveChatRoomId] = useState<string>("");
-
-  useEffect(() => {
-    onAuthStateChanged(auth, user => {
-      setUserData(user ? { username: user.displayName || "", id: user.uid } : null);
-      setInitialAuthCheckFinished(true);
-    });
-  }, []);
 
   useEffect(() => {
     (async () => {
