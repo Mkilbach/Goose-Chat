@@ -12,15 +12,10 @@ Before creating a commit, always check and update the version in `index.html`.
    <meta name="version" content="X.Y.Z" />
    ```
 
-2. Suggest the appropriate increment based on the nature of the changes, then ask **yes/no**:
-   > "Bump version from X.Y.Z to X.Y.Z+1 (patch)? [y/n]"
-
-   Use this to pick the increment type:
+2. Determine the appropriate increment based on the nature of the changes and apply it immediately without prompting:
    - **Patch** (X.Y.**Z**) — bug fixes, small tweaks
    - **Minor** (X.**Y**.0) — new features, backward compatible
    - **Major** (**X**.0.0) — breaking changes, major releases
-
-   If the user says no, ask if they want a different increment (minor/major) or to skip versioning.
 
 3. Update the `content` value in the meta tag in `index.html`.
 
