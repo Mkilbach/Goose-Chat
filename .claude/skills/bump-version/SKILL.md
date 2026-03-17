@@ -24,12 +24,22 @@ Before creating a commit, always check and update the version in `index.html`.
 
 3. Update the `content` value in the meta tag in `index.html`.
 
-4. Include `index.html` in the commit staging.
+4. Update the `"version"` field in `package.json` to the same version.
+
+5. Include both `index.html` and `package.json` in the commit staging.
 
 ## Version format
 
 Use semantic versioning: `MAJOR.MINOR.PATCH` (e.g. `1.0.0`, `1.1.0`, `2.0.0`).
 
+## Commit message format
+
+Always include the new version in the commit scope:
+```
+feat(1.1.0): add user avatars
+fix(1.0.2): correct FTP deploy path
+```
+
 ## Example
 
-Current: `content="1.0.0"` → after a small fix → `content="1.0.1"`
+Current: `content="1.0.0"` → after a small fix → `content="1.0.1"` in `index.html` and `"version": "1.0.1"` in `package.json`
